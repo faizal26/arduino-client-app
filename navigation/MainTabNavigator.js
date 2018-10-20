@@ -69,8 +69,8 @@ TemperatureStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  TemperatureStack,  
   HomeStack,
   LinksStack,
   SettingsStack,
-  TemperatureStack,
 });
