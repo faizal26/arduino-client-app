@@ -1,15 +1,25 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-import { Card, Button, Icon } from 'react-native-elements'
+import { Card, Button, Icon } from 'react-native-elements';
+
+import Temperature from './../components/Temperature';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Temperature Status',
   };
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: true,
+      data: null,
+    }
+  }
+
   componentDidMount() {
-    return fetch('https://to-do-app-api.firebaseapp.com/api/notes')
+    return fetch('https://arduino-server-api.firebaseapp.com/api/temperatures')
       .then((res) => res.json())
       .then((results) => {
         this.setState({
@@ -25,10 +35,25 @@ export default class SettingsScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
-    return (
+
+    if (this.state.isLoading) {
+      return (
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )
+    } else {
+      let dataTemperatures = this.state.data.map((val, key) => {
+        return  <Temperature
+        key={key}
+        keyval={key}
+        val={val}/>
+      })
+
+     return (
       <ScrollView style={styles.container}>
 
-        <Card title='All Fine'>
+        {/* <Card title='All Fine'>
           <View style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -50,11 +75,17 @@ export default class SettingsScreen extends React.Component {
             backgroundColor='#03A9F4'
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
             title='VIEW NOW' />
-        </Card>
+        </Card> */}
+
+        {
+          dataTemperatures
+        }
+       
 
       </ScrollView>
     );
   }
+}
 }
 
 const styles = StyleSheet.create({
@@ -62,5 +93,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   },
 })
