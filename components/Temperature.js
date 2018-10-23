@@ -14,7 +14,7 @@ export default class Note extends React.Component {
           Date: {this.props.val.timestamp}
         </Text>
         <Text style={styles.noteText}>
-          Temperature: {this.props.val.temperature}°
+          Temperature: {this.props.val.temperature}° Celcius
         </Text>
         {/* <TouchableOpacity onPress={this.props.deleteMethod} style={styles.noteDelete}>
           <Text style={styles.noteDeleteText}>Del</Text>
