@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import TemperatureScreen from '../screens/TemperatureScreen';
+import AnalyticScreen from '../screens/AnalyticScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -19,8 +20,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-car${focused ? '' : '-outline'}`
+          : 'md-car'
       }
     />
   ),
@@ -31,11 +32,11 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Dashboard',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-car${focused ? '' : '-outline'}` : 'md-car'}
     />
   ),
 };
@@ -49,7 +50,7 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name={Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle'}
     />
   ),
 };
@@ -63,14 +64,29 @@ TemperatureStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name={Platform.OS === 'ios' ? `ios-list${focused ? '' : '-outline'}` : 'md-list'}
+    />
+  ),
+};
+
+const AnalyticStack = createStackNavigator({
+  Analytic: AnalyticScreen,
+});
+
+AnalyticStack.navigationOptions = {
+  tabBarLabel: 'Analytic',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-analytics${focused ? '' : '-outline'}` : 'md-analytics'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  TemperatureStack,  
-  HomeStack,
+  AnalyticStack,  
   LinksStack,
+  TemperatureStack,
+  // HomeStack,
   SettingsStack,
 });
