@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 
 import Temperature from './../components/Temperature';
@@ -14,6 +14,7 @@ export default class SettingsScreen extends React.Component {
     this.state = {
       isLoading: true,
       data: null,
+      refreshing: false,
     }
   }
 
@@ -23,13 +24,21 @@ export default class SettingsScreen extends React.Component {
       .then((results) => {
         this.setState({
           isLoading: false,
-          data: results,
+          data: results.reverse(),
         })
       })
       .catch((error) => {
         console.log(error);
       })
-  } 
+  }
+
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.componentDidMount()
+      .then(() => {
+        this.setState({ refreshing: false })
+      })
+  }
 
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
@@ -42,15 +51,22 @@ export default class SettingsScreen extends React.Component {
         </View>
       )
     } else {
-      let dataTemperatures = this.state.data.map((val, key) => {
-        return  <Temperature
-        key={key}
-        keyval={key}
-        val={val}/>
-      })
+      let dataTemperatures = this.state.data
+        .map((val, key) => {
+          return  <Temperature
+          key={key}
+          keyval={key}
+          val={val}/>
+        })
 
      return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing = {this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }>
         { dataTemperatures }
       </ScrollView>
     );
