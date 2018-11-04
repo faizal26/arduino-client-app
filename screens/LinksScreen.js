@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, Image, } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
 import { Card, Button, Icon } from 'react-native-elements';
 
