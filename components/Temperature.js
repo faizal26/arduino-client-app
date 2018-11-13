@@ -7,11 +7,25 @@ import {
 } from 'react-native'
 
 export default class Note extends React.Component {
+  
+  getTime(unix_timestamp) {
+    var date = new Date(unix_timestamp);
+    var day = date.getDate();
+    var month = date.getMonth() + 1; // add 1 because getMonth() is based zero function
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+    var formattedTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime;
+  }
+  
   render() {
     return (
       <View key={this.props.keyval} style={styles.note}>
         <Text style={styles.noteText}>
-          Date: {this.props.val.timestamp}
+          Date: {this.getTime(this.props.val.timestamp)}
         </Text>
         <Text style={styles.noteText}>
           Temperature: {this.props.val.temperature}° Celcius
