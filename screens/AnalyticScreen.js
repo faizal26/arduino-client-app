@@ -34,39 +34,56 @@ const data = [
 const scaleX = scaleTime().domain([new Date(2018, 9, 1), new Date(2018, 10, 5)]).range([0, width]);
 const scaleY = scaleLinear().domain([0, 300]).range([height - verticalPadding, verticalPadding])
 const line = d3.shape.line()
-  .x(d => scaleX(d.x))
-  .y(d => scaleY(d.y))
-  .curve(d3.shape.curveBasis)(data);
-
+ .x(d => scaleX(d.x))
+ .y(d => scaleY(d.y))
+ .curve(d3.shape.curveBasis)(data);
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Temperature Analytics',
   };
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     isLoading: true,
-  //     data: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: true,
+      data: null,
+      minDate: null,
+      maxDate: null,
+    }
+  }
+
+  componentDidMount() {
+    return fetch('https://arduino-server-api.firebaseapp.com/api/temperatures')
+      .then((res) => res.json())
+      .then((results) => {
+        this.setState({
+          isLoading: false,
+          data: results,
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  // convertTime(array) {
+  //   const newDate = []
+  //   if (array !== null) {
+  //     array.map((item) => {
+  //       newDate.push(new Date(item.timestamp))
+  //     })
   //   }
+
+  //   const maxDate = new Date(Math.max.apply(null, newDate));
+  //   const minDate = new Date(Math.max.apply(null, newDate));
+
+  //   this.setState({ maxDate, minDate });
   // }
 
-  // componentDidMount() {
-  //   return fetch('https://arduino-server-api.firebaseapp.com/api/temperatures')
-  //     .then((res) => res.json())
-  //     .then((results) => {
-  //       this.setState({
-  //         isLoading: false,
-  //         data: results,
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  // } 
-
   render() {
+    //  this.convertTime(this.state.data);
+
      return (
       <View style={styles.container}>
         <View style={styles.analyticBox}>
