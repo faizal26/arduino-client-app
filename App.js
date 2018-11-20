@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage} from 'react-native';
 import { AppLoading, Asset, Font, Icon, Permissions, Notifications } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
@@ -34,6 +34,7 @@ export default class App extends React.Component {
   
     // Get the token that uniquely identifies this device
     const token = await Notifications.getExpoPushTokenAsync();
+    AsyncStorage.setItem("deviceToken", token);
 
     console.log("Token:", token);
   }
