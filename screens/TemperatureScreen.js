@@ -59,17 +59,17 @@ export default class SettingsScreen extends React.Component {
           val={val}/>
         })
 
-     return (
-      <ScrollView style={styles.container}
-        refreshControl={
-          <RefreshControl
-            refreshing = {this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
-          />
-        }>
-        { dataTemperatures }
-      </ScrollView>
-    );
+      return (
+        <ScrollView style={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing = {this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }>
+          { dataTemperatures }
+        </ScrollView>
+      );
   }
 }
 }

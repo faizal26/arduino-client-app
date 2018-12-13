@@ -28,7 +28,7 @@ export default class SettingsScreen extends React.Component {
      * content, we just wanted to give you a quick view of your config */
     return (
       <View style={styles.container}>
-        <Text style={styles.saved}>
+        {/* <Text style={styles.saved}>
           Username: {this.state.myKey}
         </Text>
         <View>
@@ -39,17 +39,18 @@ export default class SettingsScreen extends React.Component {
           <Text style={styles.instructions}>
             Type something to update username.
           </Text>
-        </View>
-        <View style={{borderWidth: 1, margin: 30, padding: 10}}>
+        </View> */}
+        <View style={{borderWidth: 1, margin: 10, padding: 10}}>
           <Text style={styles.configInfo}>
-            Local Device Token: {this.state.deviceToken}
+            Local Device Token:
+            {'\n'}{this.state.deviceToken}
           </Text>
-          <Text style={styles.configInfo}>
+          {/* <Text style={styles.configInfo}>
             Server Device Token: ??
           </Text>
           <Text style={styles.configInfo}>
             Arduino ID: ??
-          </Text>
+          </Text> */}
         </View>
       </View>      
     );
