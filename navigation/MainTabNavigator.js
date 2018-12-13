@@ -85,7 +85,7 @@ AnalyticStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   LinksStack, // Dashboard
-  AnalyticStack,
+  // AnalyticStack,
   TemperatureStack,  
   // HomeStack,
   SettingsStack,
