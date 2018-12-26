@@ -74,7 +74,7 @@ const AnalyticStack = createStackNavigator({
 });
 
 AnalyticStack.navigationOptions = {
-  tabBarLabel: 'Analytic',
+  tabBarLabel: 'Temperature',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -85,7 +85,7 @@ AnalyticStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   LinksStack, // Dashboard
-  TemperatureStack,
+  // TemperatureStack,
   AnalyticStack,  
   // HomeStack,
   SettingsStack,
